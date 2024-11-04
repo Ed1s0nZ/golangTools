@@ -77,6 +77,8 @@ func main() {
 // 检查是否按期修复
 func checkRepairDeadline(severity string, age int) bool {
 	switch severity {
+	case "CRITICAL":
+		return age <= 3
 	case "HIGH":
 		return age <= 7
 	case "MEDIUM":
