@@ -44,8 +44,8 @@ func main() {
 	}
 
 	// 统计按期修复情况
-	totalCount := map[string]int{"HIGH": 0, "MEDIUM": 0, "LOW": 0}
-	onTimeCount := map[string]int{"HIGH": 0, "MEDIUM": 0, "LOW": 0}
+	totalCount := map[string]int{"CRITICAL": 0, "HIGH": 0, "MEDIUM": 0, "LOW": 0}
+	onTimeCount := map[string]int{"CRITICAL": 0, "HIGH": 0, "MEDIUM": 0, "LOW": 0}
 
 	// 计算按期修复情况并打印结果
 	fmt.Println("修复情况如下:")
@@ -71,6 +71,25 @@ func main() {
 		} else {
 			fmt.Printf("%s 没有数据\n", severity)
 		}
+	}
+
+	// 输出总的按期修复率
+	totalTotalCount := 0
+	totalOnTimeCount := 0
+
+	for _, count := range onTimeCount {
+		totalOnTimeCount += count
+	}
+
+	for _, count := range totalCount {
+		totalTotalCount += count
+	}
+
+	if totalTotalCount > 0 {
+		totalRate := (float64(totalOnTimeCount) / float64(totalTotalCount)) * 100
+		fmt.Printf("\n总的按期修复率: %.2f%%\n", totalRate)
+	} else {
+		fmt.Println("没有数据可供计算总的按期修复率")
 	}
 }
 
